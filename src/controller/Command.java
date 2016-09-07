@@ -9,6 +9,6 @@ public interface Command {
 	/**
 	 * doCommand method
 	 */
-	public void doCommand(); 
+	public void doCommand(String[] args); 
 
 }

@@ -1,5 +1,8 @@
 package model;
 
-public interface Model {
+import algorithms.mazeGenerators.Maze3d;
 
+public interface Model {
+	void generateMaze(String name, int floors ,int rows, int cols);
+	Maze3d getMaze(String name);
 }

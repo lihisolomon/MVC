@@ -32,7 +32,7 @@ public class CLI {
                         printOutput("please enter your string: ");
                         userString=in.readLine();
                         if ( commands.containsKey(userString)) {
-                            commands.get(userString).doCommand();
+                            commands.doCommand(userString);
                         }
                         else
                             printOutput("You type wrong command");
