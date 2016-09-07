@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -6,7 +6,7 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.util.HashMap;
 
-import controller.Command;
+import Controller.Command;
  
 /**
 * CLI Class
