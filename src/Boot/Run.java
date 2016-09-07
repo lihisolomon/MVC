@@ -5,8 +5,8 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.util.HashMap;
 
-import Controller.Command;
-import View.CLI;
+import controller.Command;
+import view.CLI;
 
 public class Run {
 
