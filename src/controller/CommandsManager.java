@@ -36,6 +36,11 @@ public class CommandsManager {
 		return commands;
 	}
 	
+	/**
+	 * 
+	 * Creates maze 
+	 *
+	 */
 	public class GenerateMazeCommand implements Command {
 
 		@Override
@@ -48,6 +53,11 @@ public class CommandsManager {
 		}		
 	}
 	
+	/**
+	 * 
+	 * Displays the maze 
+	 *
+	 */
 	public class DisplayMazeCommand implements Command {
 
 		@Override
@@ -58,6 +68,12 @@ public class CommandsManager {
 		}
 		
 	}
+	
+	/**
+	 * 
+	 * Displays the files in a specific folder
+	 *
+	 */
 	public class DisplayFilesInPathCommand implements Command {
 
 		@Override
