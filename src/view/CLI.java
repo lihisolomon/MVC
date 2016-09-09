@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import controller.Command;
  
@@ -17,9 +16,9 @@ public class CLI {
     private HashMap<String, Command> commands;
  
     public CLI(BufferedReader in, PrintWriter out,HashMap<String, Command> commands){
-       this.in 			= in;
-       this.out 		= out;
-       this.commands	= commands;
+       this.in = in;
+       this.out = out;
+       this.commands = commands;
     }
  
     public void start() {

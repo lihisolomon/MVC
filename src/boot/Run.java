@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 import controller.Command;
 import view.CLI;
+import view.MyView;
 
 public class Run {
 
@@ -16,8 +17,6 @@ public class Run {
 		PrintWriter out = new PrintWriter(System.out);
 		CLI cli=new CLI(in,out,commands);
 		cli.start();
-		
-
 	}	
 
 }

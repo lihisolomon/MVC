@@ -10,9 +10,23 @@ import java.util.List;
 import algorithms.mazeGenerators.Maze3d;
 import controller.Command;
 
+/**
+ * MyView Class implements View
+ */
 public class MyView implements View{
 
 	private List<Thread> threads = new ArrayList<Thread>();
+	private CLI cli;
+	private HashMap<String, Command> commands;
+	
+	/**
+	 * CTOR
+	 * @param in the input stream object
+	 * @param out the output stream object
+	 */
+	public MyView(BufferedReader in,PrintWriter out) {
+		 this.cli = new CLI(in,out,this.commands);
+	}
 	
 	/**
 	 * Start the program 
@@ -27,23 +41,45 @@ public class MyView implements View{
 	 }
 
 	@Override
-	public void notifyMazeIsReady(String name) {
-		
-		
+	public void printOutput(String str) {
+		cli.printOutput(str);
 	}
+	
+	/**
+	 * notify to the client that the maze is ready
+	 */
+	@Override
+	public void notifyMazeIsReady(String name) {
+		cli.printOutput("maze " + name+ " is ready");
+	}
+	
 	/**
 	 * Prints the maze
-	 * @param1 - maze is type Maze3d
+	 * @param maze- Maze3D
 	 */
 	@Override
 	public void displayMaze(Maze3d maze) {
-		System.out.println(maze);
+		if (maze== null) 
+		{
+			cli.printOutput("this maze does not exist");
+		} 
+		else
+		{
+			cli.printOutput("Start: ");
+			maze.getStartPosition().printPosition();
+			cli.printOutput("End: ");
+			maze.getGoalPosition().printPosition();
+			System.out.println(maze);
+		}
 		
 	}
 
+	/**
+	 * setter of the commands
+	 */
 	@Override
 	public void setCommands(HashMap<String, Command> commands) {
-			
+			this.commands=commands;
 	}
 	
 	/**

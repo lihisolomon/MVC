@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.File;
-import java.nio.file.Files;
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
@@ -29,36 +28,34 @@ public class CommandsManager {
 	 */
 	public HashMap<String, Command> getCommandsMap() {
 		HashMap<String, Command> commands = new HashMap<String, Command>();
-		commands.put("generate_3d_maze", new GenerateMazeCommand());
-		commands.put("display", new DisplayMazeCommand());
-		commands.put("dir", new DisplayFilesInPathCommand());
-		
+		commands.put("generate_3d_maze", new generateMazeCommand());
+		commands.put("display", new displayMazeCommand());
+		commands.put("dir", new displayFilesInPathCommand());
+		commands.put("load", new loadMazeCommand());
+		commands.put("save", new loadMazeCommand());
+		commands.put("exit", new exitCommand());
 		return commands;
 	}
 	
 	/**
-	 * 
 	 * Creates maze 
-	 *
 	 */
-	public class GenerateMazeCommand implements Command {
+	public class generateMazeCommand implements Command {
 
 		@Override
 		public void doCommand(String[] args) {
 			String name = args[0];
-			int floors 	= Integer.parseInt(args[1]);
-			int rows 	= Integer.parseInt(args[2]);
-			int cols 	= Integer.parseInt(args[3]);
+			int floors= Integer.parseInt(args[1]);
+			int rows = Integer.parseInt(args[2]);
+			int cols = Integer.parseInt(args[3]);
 			model.generateMaze(name,floors, rows, cols);
 		}		
 	}
 	
 	/**
-	 * 
 	 * Displays the maze 
-	 *
 	 */
-	public class DisplayMazeCommand implements Command {
+	public class displayMazeCommand implements Command {
 
 		@Override
 		public void doCommand(String[] args) {
@@ -66,15 +63,12 @@ public class CommandsManager {
 			Maze3d maze = model.getMaze(name);
 			view.displayMaze(maze);
 		}
-		
 	}
 	
 	/**
-	 * 
 	 * Displays the files in a specific folder
-	 *
 	 */
-	public class DisplayFilesInPathCommand implements Command {
+	public class displayFilesInPathCommand implements Command {
 
 		@Override
 		public void doCommand(String[] args) {
@@ -84,6 +78,33 @@ public class CommandsManager {
 		}
 		
 	}
+
+	public class saveMazeCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+				model.saveMaze(args);
+		}
+	}
+	/**
+	 * load a maze from file
+	 *
+	 */
+	public class loadMazeCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+				model.loadMaze(args);
+		}
+		
+	}
 	
+	public class exitCommand implements Command {
+		@Override
+		public void doCommand(String[] args) {
+			model.exit(args);
+			
+		}
+	}
 	
 }

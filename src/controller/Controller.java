@@ -1,5 +1,10 @@
 package controller;
 
+/**
+ * Controller Interface
+ *
+ */
 public interface Controller {
-	void notifyMazeIsReady(String name);
+	public void notifyMazeIsReady(String name);
+	public void output(String str);
 }
