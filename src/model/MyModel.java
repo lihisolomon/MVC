@@ -1,7 +1,7 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -41,5 +41,5 @@ public class MyModel implements Model {
 	public Maze3d getMaze(String name) {
 		return mazes.get(name);
 	}
-
+	
 }

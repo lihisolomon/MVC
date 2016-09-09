@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
@@ -11,15 +13,25 @@ public class CommandsManager {
 	private Model model;
 	private View view;
 		
+	/**
+	 * C'tor
+	 * @param model
+	 * @param view
+	 */
 	public CommandsManager(Model model, View view) {
 		this.model = model;
 		this.view = view;		
 	}
 	
+	/**
+	 * Creates a hash map of all the commands
+	 * @return commands
+	 */
 	public HashMap<String, Command> getCommandsMap() {
 		HashMap<String, Command> commands = new HashMap<String, Command>();
-		commands.put("generate_maze", new GenerateMazeCommand());
+		commands.put("generate_3d_maze", new GenerateMazeCommand());
 		commands.put("display", new DisplayMazeCommand());
+		commands.put("dir", new DisplayFilesInPathCommand());
 		
 		return commands;
 	}
@@ -43,6 +55,16 @@ public class CommandsManager {
 			String name = args[0];
 			Maze3d maze = model.getMaze(name);
 			view.displayMaze(maze);
+		}
+		
+	}
+	public class DisplayFilesInPathCommand implements Command {
+
+		@Override
+		public void doCommand(String[] args) {
+				String folderPath=args[0];
+				File[] listOfFiles=(new File(folderPath)).listFiles();
+				view.displayFiles(listOfFiles);
 		}
 		
 	}
