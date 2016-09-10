@@ -2,6 +2,8 @@ package model;
 
 import java.io.File;
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 import controller.Controller;
 
 /**
@@ -17,4 +19,5 @@ public interface Model {
 	public void exit(String[] args);
 	public File[] listFiles(String args);
 	public void solveMaze(String[] args);
+	public Solution<Position> getSolution(String[] args);
 }

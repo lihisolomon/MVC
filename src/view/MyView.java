@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.Solution;
 import controller.Command;
 import controller.Controller;
 
@@ -29,14 +31,6 @@ public class MyView implements View{
 	public MyView(BufferedReader in,PrintWriter out) {
 		 this.cli = new CLI(in,out,this.commands);
 	}
-	
-	/**
-	 * getter of controller
-	 */
-	@Override
-	public Controller getController() {
-		return controller;
-	}
 
 	/**
 	 * setter of controller
@@ -49,6 +43,31 @@ public class MyView implements View{
 	}
 	
 	/**
+	 * getter of controller
+	 */
+	@Override
+	public Controller getController() {
+		return controller;
+	}
+	
+	/**
+	 * setter of the commands
+	 */
+	@Override
+	public void setCommands(HashMap<String, Command> commands) {
+			this.commands=commands;
+	}
+	
+	/**
+	 * print a message to the user
+	 */
+	@Override
+	public void printOutput(String str) {
+		cli.printOutput(str);
+	}
+	
+	
+	/**
 	 * Start the program 
 	 * @param1 in 		- input stream
 	 * @param2 out 		- output stream
@@ -59,18 +78,13 @@ public class MyView implements View{
 	 {
 		cli.start();
 	 }
-
-	@Override
-	public void printOutput(String str) {
-		cli.printOutput(str);
-	}
 	
 	/**
 	 * notify to the client that the maze is ready
 	 */
 	@Override
 	public void notifyMazeIsReady(String name) {
-		cli.printOutput("maze " + name+ " is ready");
+		System.out.println("maze " + name+ " is ready");
 	}
 	
 	/**
@@ -81,25 +95,16 @@ public class MyView implements View{
 	public void displayMaze(Maze3d maze) {
 		if (maze== null) 
 		{
-			cli.printOutput("this maze does not exist");
+			System.out.println("this maze does not exist");
 		} 
 		else
 		{
-			cli.printOutput("Start: ");
+			System.out.println("Start: ");
 			maze.getStartPosition().printPosition();
-			cli.printOutput("End: ");
+			System.out.println("End: ");
 			maze.getGoalPosition().printPosition();
 			System.out.println(maze);
 		}
-		
-	}
-
-	/**
-	 * setter of the commands
-	 */
-	@Override
-	public void setCommands(HashMap<String, Command> commands) {
-			this.commands=commands;
 	}
 	
 	/**
@@ -122,6 +127,12 @@ public class MyView implements View{
 		});
 		thread.start();
 		threads.add(thread);	
+	}
+	
+	@Override
+	public void displaySolution(Solution<Position> solution) {
+		System.out.println("the solution is: ");
+		System.out.println(solution);
 	}
 
 }

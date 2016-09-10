@@ -3,7 +3,6 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.Character.Subset;
 import java.util.HashMap;
 
 import controller.*;
@@ -52,19 +51,23 @@ public class CLI {
             @Override
             public void run() {
                 try {
-                    do {
-                    	String userString;
-                        printOutput("please enter your string: ");
-                        userString=in.readLine();
-                        String keyRef=userString.substring(0, userString.indexOf(" "));
-                        if ( commands.containsKey(keyRef)) {
+                	String userString;
+                    printOutput("please enter your string: ");
+                    userString=in.readLine();
+                	while (!userString.equals("exit")){
+                    	
+                        String command=(userString.split(" "))[0];
+                        //String keyRef=userString.substring(0, userString.indexOf(" "));
+                        if ( commands.containsKey(command)) {
                            	//convert the string to an array and removes the first characters until space
-                           	 commands.get(keyRef).doCommand(userString.substring(userString.indexOf(" ")+1,userString.length()).split(" "));
+                           	 commands.get(command).doCommand(userString.substring(userString.indexOf(" ")+1,userString.length()).split(" "));
                         }
                         else
                             printOutput("You type wrong command");
- 
-                    } while (!(in.readLine()).equals("exit"));
+                        
+                        printOutput("please enter your string: ");
+                        userString=in.readLine();
+                    } 
                }
                 catch (IOException e){
                     e.printStackTrace();

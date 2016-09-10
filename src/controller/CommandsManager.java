@@ -31,7 +31,7 @@ public class CommandsManager {
 		public HashMap<String, Command> getCommandsMap() {
 			HashMap<String, Command> commands = new HashMap<String, Command>();
 			commands.put("dir", new displayFilesInPathCommand());
-			commands.put("generate_3d_maze", new generateMazeCommand());
+			commands.put("generate_maze", new generateMazeCommand());
 			commands.put("display", new displayMazeCommand());
 			commands.put("display_cross_section", new displayCrossSectionCommand());
 			commands.put("save", new saveMazeCommand());
@@ -128,7 +128,6 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 			//to do
 		}
-		
 	}
 	
 	/**
@@ -152,7 +151,7 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-				//to do
+				view.displaySolution(model.getSolution(args));
 		}
 		
 	}

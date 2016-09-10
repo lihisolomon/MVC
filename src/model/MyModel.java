@@ -185,6 +185,10 @@ public class MyModel implements Model {
 		thread.start();
 		threads.add(thread);
 		exec.submit(thread);
-		
+	}
+	
+
+	public Solution<Position> getSolution(String[] args){
+		return solutions.get(args[0]);
 	}
 }
