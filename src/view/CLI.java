@@ -3,6 +3,7 @@ package view;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.Character.Subset;
 import java.util.HashMap;
 
 import controller.*;
@@ -55,10 +56,9 @@ public class CLI {
                     	String userString;
                         printOutput("please enter your string: ");
                         userString=in.readLine();
-                        String[] paramArray=userString.split(" ");
-                        if ( commands.containsKey(paramArray[0])) {
+                        if ( commands.containsKey(userString.substring(0, userString.indexOf(" ")))) {
                            	//convert the string to an array and removes the first characters until space
-                            commands.get(userString).doCommand(paramArray);
+                            commands.get(userString).doCommand(userString.substring(userString.indexOf(" ") +1, userString.length()));
                         }
                         else
                             printOutput("You type wrong command");
