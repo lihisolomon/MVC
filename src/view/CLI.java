@@ -56,9 +56,10 @@ public class CLI {
                     	String userString;
                         printOutput("please enter your string: ");
                         userString=in.readLine();
-                        if ( commands.containsKey(userString.substring(0, userString.indexOf(" ")))) {
+                        String keyRef=userString.substring(0, userString.indexOf(" "));
+                        if ( commands.containsKey(keyRef)) {
                            	//convert the string to an array and removes the first characters until space
-                            commands.get(userString).doCommand(userString.substring(userString.indexOf(" ") +1, userString.length()));
+                           	 commands.get(keyRef).doCommand(userString.substring(userString.indexOf(" ")+1,userString.length()).split(" "));
                         }
                         else
                             printOutput("You type wrong command");
