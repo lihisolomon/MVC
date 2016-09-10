@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import controller.Controller;
+import controller.MyController;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
@@ -31,15 +32,30 @@ public class MyModel implements Model {
 
 	/**
 	 * CTOR
-	 * @param controller
 	 */
-	public MyModel(Controller controller) {
-		this.controller = controller;
+	public MyModel() {
 		this.threads = new ArrayList<Thread>();
 		this.mazes = new ConcurrentHashMap<String, Maze3d>();
 		this.exec=Executors.newFixedThreadPool(20);
 	}
 	
+	/**
+	 * getter of controller
+	 */
+	@Override
+	public Controller getController() {
+		return controller;
+	}
+
+	/**
+	 * setter of controller
+	 * @param controller 
+	 */
+	@Override
+	public void setController(Controller controller) {
+		this.controller = controller;
+	}
+
 	/**
 	 * generate the maze
 	 * @param name

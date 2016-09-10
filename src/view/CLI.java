@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
-import controller.Command;
+import controller.*;
  
 /**
 * CLI Class
@@ -14,6 +14,7 @@ public class CLI {
     private BufferedReader in;
     private PrintWriter out;
     private HashMap<String, Command> commands;
+
  
     public CLI(BufferedReader in, PrintWriter out,HashMap<String, Command> commands){
        this.in = in;
@@ -22,7 +23,18 @@ public class CLI {
        
     }
  
-    public void start() {
+    
+    public HashMap<String, Command> getCommands() {
+		return commands;
+	}
+
+
+	public void setCommands(HashMap<String, Command> commands) {
+		this.commands = commands;
+	}
+
+
+	public void start() {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -32,9 +44,11 @@ public class CLI {
                         printOutput("please enter your string: ");
                         userString=in.readLine();
                         if ( commands.containsKey(userString)) {
+                        	printOutput("please enter parameters: ");
+                            String parameters=in.readLine();
                         	//convert the string to an array and removes the first characters until space
-                        	 String[] userInput=(userString.substring(userString.indexOf(" ")+1)).split(" ");
-                            commands.get(userString).doCommand(userInput);
+                        	 String[] paramArray=parameters.split(" ");
+                            commands.get(userString).doCommand(paramArray);
                         }
                         else
                             printOutput("You type wrong command");

@@ -5,14 +5,19 @@ import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
 import controller.Command;
+import controller.Controller;
+import controller.MyController;
 
 /**
  * View Interface
  */
 public interface View {
+	public void start();
+	public Controller getController();
+	public void setController(Controller controller);
 	public void printOutput(String str);
-	void notifyMazeIsReady(String name);
-	void displayMaze(Maze3d maze);
-	void setCommands(HashMap<String, Command> commands);
-	void displayFiles(File[] listOfFiles);
+	public void notifyMazeIsReady(String name);
+	public void displayMaze(Maze3d maze);
+	public void setCommands(HashMap<String, Command> commands);
+	public void displayFiles(File[] listOfFiles);
 }

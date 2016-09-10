@@ -33,4 +33,17 @@ public class MyController implements Controller{
 	public void notifyMazeIsReady(String name) {
 		view.notifyMazeIsReady(name);
 	}
+	public View getView() {
+		return view;
+	}
+	public void setView(View view) {
+		this.view = view;
+	}
+	public Model getModel() {
+		return model;
+	}
+	public void setModel(Model model) {
+		this.model = model;
+	}
+	
 }

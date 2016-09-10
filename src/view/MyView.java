@@ -9,6 +9,8 @@ import java.util.List;
 
 import algorithms.mazeGenerators.Maze3d;
 import controller.Command;
+import controller.Controller;
+import controller.MyController;
 
 /**
  * MyView Class implements View
@@ -18,6 +20,7 @@ public class MyView implements View{
 	private List<Thread> threads = new ArrayList<Thread>();
 	private CLI cli;
 	private HashMap<String, Command> commands;
+	private Controller controller;
 	
 	/**
 	 * CTOR
@@ -29,14 +32,32 @@ public class MyView implements View{
 	}
 	
 	/**
+	 * getter of controller
+	 */
+	@Override
+	public Controller getController() {
+		return controller;
+	}
+
+	/**
+	 * setter of controller
+	 * @param controller 
+	 */
+	@Override
+	public void setController(Controller controller) {
+		this.controller = controller;
+		cli.setCommands(this.commands);
+	}
+	
+	/**
 	 * Start the program 
 	 * @param1 in 		- input stream
 	 * @param2 out 		- output stream
 	 * @param3 command 	- command to run in cli class
 	 */
-	public void start(BufferedReader in, PrintWriter out,HashMap<String, Command> commands)
+	@Override
+	public void start()
 	 {
-		CLI cli=new CLI(in,out,commands);
 		cli.start();
 	 }
 

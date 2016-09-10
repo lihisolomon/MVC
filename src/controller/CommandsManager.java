@@ -25,16 +25,16 @@ public class CommandsManager {
 	 * Creates a hash map of all the commands
 	 * @return commands
 	 */
-	public HashMap<String, Command> getCommandsMap() {
-		HashMap<String, Command> commands = new HashMap<String, Command>();
-		commands.put("generate_3d_maze", new generateMazeCommand());
-		commands.put("display", new displayMazeCommand());
-		commands.put("dir", new displayFilesInPathCommand());
-		commands.put("load", new loadMazeCommand());
-		commands.put("save", new loadMazeCommand());
-		commands.put("exit", new exitCommand());
-		return commands;
-	}
+		public HashMap<String, Command> getCommandsMap() {
+			HashMap<String, Command> commands = new HashMap<String, Command>();
+			commands.put("generate_3d_maze", new generateMazeCommand());
+			commands.put("display", new displayMazeCommand());
+			commands.put("dir", new displayFilesInPathCommand());
+			commands.put("load", new loadMazeCommand());
+			commands.put("save", new saveMazeCommand());
+			commands.put("exit", new exitCommand());
+			return commands;
+		}
 	
 	/**
 	 * Creates maze 
