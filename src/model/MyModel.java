@@ -15,7 +15,6 @@ import java.util.concurrent.Executors;
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
 import controller.Controller;
-import controller.MyController;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
 
@@ -135,11 +134,18 @@ public class MyModel implements Model {
 			controller.output("not enough data");
 	}
 	
+	/**
+	 * exit command
+	 */
 	@Override
 	public void exit(String[] args) {
 		exec.shutdown();
 		controller.output("EXIT!");
 	}
+	
+	/**
+	 * return the list of the files
+	 */
 	public File[] listFiles(String args){
 		return (new File(args)).listFiles();
 	}

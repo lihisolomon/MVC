@@ -5,7 +5,10 @@ import java.util.HashMap;
 import algorithms.mazeGenerators.Maze3d;
 import model.Model;
 import view.View;
-
+/**
+ * CommandsManager Class
+ *
+ */
 public class CommandsManager {
 	
 	private Model model;
@@ -27,11 +30,14 @@ public class CommandsManager {
 	 */
 		public HashMap<String, Command> getCommandsMap() {
 			HashMap<String, Command> commands = new HashMap<String, Command>();
-			commands.put("generate_3d_maze", new generateMazeCommand());
-			commands.put("display", new displayMazeCommand());
 			commands.put("dir", new displayFilesInPathCommand());
-			commands.put("load", new loadMazeCommand());
+			commands.put("generate_maze", new generateMazeCommand());
+			commands.put("display", new displayMazeCommand());
+			commands.put("display_cross_section", new displayCrossSectionCommand());
 			commands.put("save", new saveMazeCommand());
+			commands.put("load", new loadMazeCommand());
+			commands.put("solve", new solveMazeCommand());
+			commands.put("display_solution", new displaySolutionCommand());
 			commands.put("exit", new exitCommand());
 			return commands;
 		}
@@ -77,6 +83,10 @@ public class CommandsManager {
 		
 	}
 
+	/**
+	 * save the maze into a file
+	 *
+	 */
 	public class saveMazeCommand implements Command {
 
 		@Override
@@ -97,6 +107,9 @@ public class CommandsManager {
 		
 	}
 	
+	/**
+	 * exit
+	 */
 	public class exitCommand implements Command {
 		@Override
 		public void doCommand(String[] args) {
@@ -104,5 +117,8 @@ public class CommandsManager {
 			
 		}
 	}
+	
+	
+	
 	
 }

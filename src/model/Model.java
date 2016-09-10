@@ -3,7 +3,6 @@ package model;
 import java.io.File;
 import algorithms.mazeGenerators.Maze3d;
 import controller.Controller;
-import controller.MyController;
 
 /**
  * Model Interface

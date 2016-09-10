@@ -3,6 +3,9 @@ package controller;
 import model.Model;
 import view.View;
 
+/**
+ * MyController class implements Controller
+ */
 public class MyController implements Controller{
 	private View view;
 	private Model model;
@@ -20,6 +23,7 @@ public class MyController implements Controller{
 		commandsManager = new CommandsManager(model, view);
 		view.setCommands(commandsManager.getCommandsMap());
 	}
+	
 	/**
 	 * sending a message to the view
 	 * @param string the message we want
@@ -29,19 +33,38 @@ public class MyController implements Controller{
 		view.printOutput(string);
 	}
 	
+	/**
+	 * notify that the Maze Is Ready
+	 */
 	@Override
 	public void notifyMazeIsReady(String name) {
 		view.notifyMazeIsReady(name);
 	}
+	
+	/**
+	 * getter of view
+	 */
 	public View getView() {
 		return view;
 	}
+	
+	/**
+	 * setter of view
+	 */
 	public void setView(View view) {
 		this.view = view;
 	}
+	
+	/**
+	 * getter of model
+	 */
 	public Model getModel() {
 		return model;
 	}
+	
+	/**
+	 * setter of model
+	 */
 	public void setModel(Model model) {
 		this.model = model;
 	}

@@ -15,25 +15,37 @@ public class CLI {
     private PrintWriter out;
     private HashMap<String, Command> commands;
 
- 
+    /**
+     * CTOR
+     * @param in
+     * @param out
+     * @param commands
+     */
     public CLI(BufferedReader in, PrintWriter out,HashMap<String, Command> commands){
        this.in = in;
        this.out = out;
        this.commands = commands;
-       
     }
  
-    
+    /**
+     * getters the commands
+     * @return
+     */
     public HashMap<String, Command> getCommands() {
 		return commands;
 	}
 
-
+    /**
+     * setter of the commands
+     * @param commands
+     */
 	public void setCommands(HashMap<String, Command> commands) {
 		this.commands = commands;
 	}
 
-
+	/**
+	 * start the cli
+	 */
 	public void start() {
         new Thread(new Runnable() {
             @Override
@@ -61,6 +73,7 @@ public class CLI {
             }
         }).start();
     }
+	
     /**
      * print using the out object
      * @param str the string we want to print

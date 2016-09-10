@@ -10,7 +10,6 @@ import java.util.List;
 import algorithms.mazeGenerators.Maze3d;
 import controller.Command;
 import controller.Controller;
-import controller.MyController;
 
 /**
  * MyView Class implements View
