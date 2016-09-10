@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import algorithms.mazeGenerators.Maze3d;
 
 /**
@@ -12,4 +13,5 @@ public interface Model {
 	public void saveMaze(String[] args);
 	public void loadMaze(String[] args);
 	public void exit(String[] args);
+	public File[] listFiles(String args);
 }

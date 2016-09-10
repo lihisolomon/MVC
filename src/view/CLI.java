@@ -19,6 +19,7 @@ public class CLI {
        this.in = in;
        this.out = out;
        this.commands = commands;
+       
     }
  
     public void start() {

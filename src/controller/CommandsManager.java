@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.File;
 import java.util.HashMap;
 
 import algorithms.mazeGenerators.Maze3d;
@@ -73,8 +72,7 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 				String folderPath=args[0];
-				File[] listOfFiles=(new File(folderPath)).listFiles();
-				view.displayFiles(listOfFiles);
+				view.displayFiles(model.listFiles(folderPath));
 		}
 		
 	}

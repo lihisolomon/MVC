@@ -124,4 +124,7 @@ public class MyModel implements Model {
 		exec.shutdown();
 		controller.output("EXIT!");
 	}
+	public File[] listFiles(String args){
+		return (new File(args)).listFiles();
+	}
 }
