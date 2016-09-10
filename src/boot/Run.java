@@ -17,7 +17,7 @@ public class Run {
 
 	public static void main(String[] args) {
 		HashMap<String, Command> commands=new HashMap<>();
-		Model model=new MyModel(controller);
+		//Model model=new MyModel(controller);
 		Controller controller=new MyController(view, model)
 		BufferedReader in = new BufferedReader(new InputStreamReader(System.in)); 
 		PrintWriter out = new PrintWriter(System.out);
