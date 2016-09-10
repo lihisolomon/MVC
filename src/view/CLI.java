@@ -55,11 +55,9 @@ public class CLI {
                     	String userString;
                         printOutput("please enter your string: ");
                         userString=in.readLine();
-                        if ( commands.containsKey(userString)) {
-                        	printOutput("please enter parameters: ");
-                            String parameters=in.readLine();
-                        	//convert the string to an array and removes the first characters until space
-                        	 String[] paramArray=parameters.split(" ");
+                        String[] paramArray=userString.split(" ");
+                        if ( commands.containsKey(paramArray[0])) {
+                           	//convert the string to an array and removes the first characters until space
                             commands.get(userString).doCommand(paramArray);
                         }
                         else

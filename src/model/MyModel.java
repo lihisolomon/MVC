@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -14,6 +15,11 @@ import java.util.concurrent.Executors;
 
 import algorithms.mazeGenerators.GrowingTreeGenerator;
 import algorithms.mazeGenerators.Maze3d;
+import algorithms.mazeGenerators.Position;
+import algorithms.search.BFS;
+import algorithms.search.DFS;
+import algorithms.search.Maze3dSearchable;
+import algorithms.search.Solution;
 import controller.Controller;
 import io.MyCompressorOutputStream;
 import io.MyDecompressorInputStream;
@@ -26,6 +32,7 @@ public class MyModel implements Model {
 	
 	private Controller controller;	
 	private Map<String, Maze3d> mazes;
+	private HashMap<String, Solution<Position>> solutions;
 	private List<Thread> threads;
 	private ExecutorService exec;
 
@@ -35,6 +42,7 @@ public class MyModel implements Model {
 	public MyModel() {
 		this.threads = new ArrayList<Thread>();
 		this.mazes = new ConcurrentHashMap<String, Maze3d>();
+		this.solutions = new HashMap<>();
 		this.exec=Executors.newFixedThreadPool(20);
 	}
 	
@@ -148,5 +156,35 @@ public class MyModel implements Model {
 	 */
 	public File[] listFiles(String args){
 		return (new File(args)).listFiles();
+	}
+	
+	@Override
+	public void solveMaze(String[] args){
+		String nameMaze=args[0];
+		String alg=args[1];
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				Maze3d maze=getMaze(nameMaze);
+				Solution<Position> solution = new Solution<>();
+				Maze3dSearchable mazeAdapter = new Maze3dSearchable(maze);
+				
+				if(alg.equals("BFS")) {
+					BFS<Position> searcher = new BFS<>();
+					solution = searcher.search(mazeAdapter);
+				}
+				else if (alg.equals("DFS")) {
+					DFS<Position> searcher = new DFS<>();
+					solution = searcher.search(mazeAdapter);
+				}
+				
+				solutions.put(nameMaze, solution);
+				controller.output("the solution is ready");
+			}	
+		});
+		thread.start();
+		threads.add(thread);
+		exec.submit(thread);
+		
 	}
 }

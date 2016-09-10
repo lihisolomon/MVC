@@ -16,4 +16,5 @@ public interface Model {
 	public void loadMaze(String[] args);
 	public void exit(String[] args);
 	public File[] listFiles(String args);
+	public void solveMaze(String[] args);
 }
