@@ -134,5 +134,16 @@ public class MyView implements View{
 		System.out.println("the solution is: ");
 		System.out.println(solution);
 	}
+	
+	public void displayCrossSection(int[][] maze2d){
+		System.out.println("{");
+		for (int i=0;i<maze2d.length;i++)
+		{
+			for (int j=0;j<maze2d[0].length;j++)
+			{
+				System.out.print(maze2d[i][j]+ ",");
+			}System.out.println("");
+		}System.out.println("}");
+	}
 
 }

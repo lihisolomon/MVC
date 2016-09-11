@@ -49,11 +49,7 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			String name = args[0];
-			int floors= Integer.parseInt(args[1]);
-			int rows = Integer.parseInt(args[2]);
-			int cols = Integer.parseInt(args[3]);
-			model.generateMaze(name,floors, rows, cols);
+			model.generateMaze(args);
 		}		
 	}
 	
@@ -126,7 +122,7 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-			//to do
+			view.displayCrossSection(model.getCrossSection(args));
 		}
 	}
 	

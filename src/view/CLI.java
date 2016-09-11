@@ -52,22 +52,18 @@ public class CLI {
             public void run() {
                 try {
                 	String userString;
-                    printOutput("please enter your string: ");
-                    userString=in.readLine();
-                	while (!userString.equals("exit")){
-                    	
+                	do{
+                		printOutput("please enter your string: ");
+                        userString=in.readLine();
                         String command=(userString.split(" "))[0];
-                        //String keyRef=userString.substring(0, userString.indexOf(" "));
                         if ( commands.containsKey(command)) {
                            	//convert the string to an array and removes the first characters until space
                            	 commands.get(command).doCommand(userString.substring(userString.indexOf(" ")+1,userString.length()).split(" "));
                         }
                         else
                             printOutput("You type wrong command");
-                        
-                        printOutput("please enter your string: ");
-                        userString=in.readLine();
-                    } 
+
+                    } while (!userString.equals("exit"));
                }
                 catch (IOException e){
                     e.printStackTrace();
