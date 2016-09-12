@@ -131,10 +131,13 @@ public class MyModel implements Model {
 		String fileName=args[1];
 		if(mazeName!=null && fileName!=null)
 		{
+			
 			try {
+				
 				InputStream in=new MyDecompressorInputStream(new FileInputStream(fileName+".maz"));
 				byte b[]=new byte[100];
 				try{
+					
 					in.read(b);
 					Maze3d loaded=new Maze3d(b);
 					mazes.put(mazeName, loaded);
