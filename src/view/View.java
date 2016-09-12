@@ -23,5 +23,4 @@ public interface View {
 	public void displayFiles(File[] listOfFiles);
 	public void displaySolution(Solution<Position> solution);
 	public void displayCrossSection(int[][] maze2d);
-	public void exit(String[] args);
 }

@@ -18,7 +18,6 @@ import controller.Controller;
  */
 public class MyView implements View{
 
-	private List<Thread> threads;
 	private CLI cli;
 	private HashMap<String, Command> commands;
 	private Controller controller;
@@ -30,7 +29,6 @@ public class MyView implements View{
 	 */
 	public MyView(BufferedReader in,PrintWriter out) {
 		 this.cli = new CLI(in,out,this.commands);
-		 this.threads = new ArrayList<Thread>();
 	}
 
 	/**
@@ -112,23 +110,15 @@ public class MyView implements View{
 	 * Prints all the files in specific folder
 	 */
 	public void displayFiles(File[] listOfFiles)
-	{		
-		Thread thread = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				if (listOfFiles!=null)
-					for (int i = 0; i < listOfFiles.length; i++) {
-						if (listOfFiles[i].isFile()) {
-							System.out.println("File " + listOfFiles[i].getName());
-						} else if (listOfFiles[i].isDirectory()) {
-							System.out.println("Directory " + listOfFiles[i].getName());
-						}
-					}
-			}	
-		});
-		thread.start();
-		threads.add(thread);	
+	{			
+		if (listOfFiles!=null)
+			for (int i = 0; i < listOfFiles.length; i++) {
+				if (listOfFiles[i].isFile()) {
+					System.out.println("File " + listOfFiles[i].getName());
+				} else if (listOfFiles[i].isDirectory()) {
+					System.out.println("Directory " + listOfFiles[i].getName());
+				}
+			}
 	}
 	
 	/**
@@ -152,20 +142,5 @@ public class MyView implements View{
 				System.out.print(maze2d[i][j]+ ",");
 			}System.out.println("");
 		}System.out.println("}");
-	}
-
-
-	/**
-	 * exit command
-	 */
-	public void exit(String[] args) {
-		for (Thread t: threads){
-			try {
-				t.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		controller.output("EXIT!");
 	}
 }
