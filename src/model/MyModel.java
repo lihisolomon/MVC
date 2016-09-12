@@ -133,7 +133,7 @@ public class MyModel implements Model {
 		{
 			try {
 				InputStream in=new MyDecompressorInputStream(new FileInputStream(fileName+".maz"));
-				byte b[]=new byte[100];
+				byte b[]=new byte[1000000000];
 				try{
 					in.read(b);
 					Maze3d loaded=new Maze3d(b);
