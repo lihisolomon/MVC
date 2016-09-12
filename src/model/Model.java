@@ -17,7 +17,7 @@ public interface Model {
 	public void saveMaze(String[] args);
 	public void loadMaze(String[] args);
 	public void exit(String[] args);
-	public File[] listFiles(String args);
+	public File[] listFiles(String[] args);
 	public void solveMaze(String[] args);
 	public Solution<Position> getSolution(String[] args);
 	public int[][] getCrossSection(String[] args);

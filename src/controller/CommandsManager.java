@@ -34,8 +34,8 @@ public class CommandsManager {
 			commands.put("generate_maze", new generateMazeCommand());
 			commands.put("display", new displayMazeCommand());
 			commands.put("display_cross_section", new displayCrossSectionCommand());
-			commands.put("save", new saveMazeCommand());
-			commands.put("load", new loadMazeCommand());
+			commands.put("save_maze", new saveMazeCommand());
+			commands.put("load_maze", new loadMazeCommand());
 			commands.put("solve", new solveMazeCommand());
 			commands.put("display_solution", new displaySolutionCommand());
 			commands.put("exit", new exitCommand());
@@ -73,8 +73,7 @@ public class CommandsManager {
 
 		@Override
 		public void doCommand(String[] args) {
-				String folderPath=args[0];
-				view.displayFiles(model.listFiles(folderPath));
+				view.displayFiles(model.listFiles(args));
 		}
 		
 	}
@@ -101,17 +100,6 @@ public class CommandsManager {
 				model.loadMaze(args);
 		}
 		
-	}
-	
-	/**
-	 * exit
-	 */
-	public class exitCommand implements Command {
-		@Override
-		public void doCommand(String[] args) {
-			model.exit(args);
-			
-		}
 	}
 	
 	/**
@@ -149,6 +137,16 @@ public class CommandsManager {
 		public void doCommand(String[] args) {
 				view.displaySolution(model.getSolution(args));
 		}
-		
+	}
+	
+	/**
+	 * exit
+	 */
+	public class exitCommand implements Command {
+		@Override
+		public void doCommand(String[] args) {
+			model.exit(args);
+			view.exit(args);
+		}
 	}
 }

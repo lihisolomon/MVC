@@ -53,7 +53,8 @@ public class CLI {
                 try {
                 	String userString;
                 	do{
-                		printOutput("please enter your string: ");
+                		printMenu();
+                		printOutput("please enter your choice: ");
                         userString=in.readLine();
                         String command=(userString.split(" "))[0];
                         if ( commands.containsKey(command)) {
@@ -81,5 +82,22 @@ public class CLI {
         out.flush();
     }
  
+    /**
+     * Print a menu to the viewer
+     */
+    public void printMenu(){
+    		  System.out.println("\n\n********************************");
+              System.out.println("what do want to do? ");
+              System.out.println("		dir <path>");
+              System.out.println("		generate_maze <mazeName> <x> <y> <z>");
+              System.out.println("		display <name>");
+              System.out.println("		display_cross_section <axle> <index> <mazeName>");
+              System.out.println("		save_maze mazeName <fileName>");
+              System.out.println("		load_maze mazeName <fileName>");
+              System.out.println("		solve mazeName <algorithm>");
+              System.out.println("		display_solution <mazeName>");
+              System.out.println("		exit");
+              System.out.println("********************************\n");
+       }
 }
  
