@@ -18,7 +18,7 @@ import controller.Controller;
  */
 public class MyView implements View{
 
-	private List<Thread> threads = new ArrayList<Thread>();
+	private List<Thread> threads;
 	private CLI cli;
 	private HashMap<String, Command> commands;
 	private Controller controller;
@@ -30,6 +30,7 @@ public class MyView implements View{
 	 */
 	public MyView(BufferedReader in,PrintWriter out) {
 		 this.cli = new CLI(in,out,this.commands);
+		 this.threads = new ArrayList<Thread>();
 	}
 
 	/**
@@ -116,25 +117,32 @@ public class MyView implements View{
 
 			@Override
 			public void run() {
-				for (int i = 0; i < listOfFiles.length; i++) {
-					if (listOfFiles[i].isFile()) {
-						System.out.println("File " + listOfFiles[i].getName());
-					} else if (listOfFiles[i].isDirectory()) {
-						System.out.println("Directory " + listOfFiles[i].getName());
+				if (listOfFiles!=null)
+					for (int i = 0; i < listOfFiles.length; i++) {
+						if (listOfFiles[i].isFile()) {
+							System.out.println("File " + listOfFiles[i].getName());
+						} else if (listOfFiles[i].isDirectory()) {
+							System.out.println("Directory " + listOfFiles[i].getName());
+						}
 					}
-				}
 			}	
 		});
 		thread.start();
 		threads.add(thread);	
 	}
 	
+	/**
+	 * display the solution to the user
+	 */
 	@Override
 	public void displaySolution(Solution<Position> solution) {
 		System.out.println("the solution is: ");
 		System.out.println(solution);
 	}
 	
+	/**
+	 * display Cross Section
+	 */
 	public void displayCrossSection(int[][] maze2d){
 		System.out.println("{");
 		for (int i=0;i<maze2d.length;i++)
@@ -146,4 +154,18 @@ public class MyView implements View{
 		}System.out.println("}");
 	}
 
+
+	/**
+	 * exit command
+	 */
+	public void exit(String[] args) {
+		for (Thread t: threads){
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		controller.output("EXIT!");
+	}
 }

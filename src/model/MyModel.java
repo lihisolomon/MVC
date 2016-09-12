@@ -1,27 +1,13 @@
 package model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.*;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
-import algorithms.mazeGenerators.GrowingTreeGenerator;
-import algorithms.mazeGenerators.Maze3d;
-import algorithms.mazeGenerators.Position;
-import algorithms.search.BFS;
-import algorithms.search.DFS;
-import algorithms.search.Maze3dSearchable;
-import algorithms.search.Solution;
+import algorithms.mazeGenerators.*;
+import algorithms.search.*;
 import controller.Controller;
-import io.MyCompressorOutputStream;
-import io.MyDecompressorInputStream;
+import io.*;
 
 /**
  * MyModel class implements Model
@@ -32,7 +18,7 @@ public class MyModel implements Model {
 	private Controller controller;	
 	private Map<String, Maze3d> mazes;
 	private HashMap<String, Solution<Position>> solutions;
-	private ExecutorService exec;
+	private List<Thread> threads;
 
 	/**
 	 * CTOR
@@ -40,7 +26,7 @@ public class MyModel implements Model {
 	public MyModel() {
 		this.mazes = new ConcurrentHashMap<String, Maze3d>();
 		this.solutions = new HashMap<>();
-		this.exec=Executors.newFixedThreadPool(20);
+		this.threads=new ArrayList<Thread>();
 	}
 	
 	/**
@@ -72,23 +58,29 @@ public class MyModel implements Model {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String name = args[0];
-				Integer floors= Integer.parseInt(args[1]);
-				Integer rows = Integer.parseInt(args[2]);
-				Integer cols = Integer.parseInt(args[3]);
-				if (name!=null && floors!=null && rows!=null && cols!=null){
-					GrowingTreeGenerator generator = new GrowingTreeGenerator();
-					Maze3d maze = generator.generate(floors,rows, cols);
-					mazes.put(name, maze);
+				if(args.length==4){
+					String name = args[0];
+					Integer floors= Integer.parseInt(args[1]);
+					Integer rows = Integer.parseInt(args[2]);
+					Integer cols = Integer.parseInt(args[3]);
+					if (!mazes.containsKey(name) && floors>0 && rows>0 && cols>0){
+						GrowingTreeGenerator generator = new GrowingTreeGenerator();
+						Maze3d maze = generator.generate(floors,rows, cols);
+						mazes.put(name, maze);
 				
-					controller.notifyMazeIsReady(name);
+						controller.notifyMazeIsReady(name);
+					}
+					else{
+						controller.output("ERROR: invalid data");
+					}
 				}
 				else{
-					controller.output("invalid data");
+					controller.output("ERROR: Please enter 4 arguments");
 				}
 			}	
 		});
-		exec.submit(thread);
+		thread.start();
+		threads.add(thread);
 	}
 
 	/**
@@ -104,22 +96,27 @@ public class MyModel implements Model {
 	 */
 	@Override
 	public void saveMaze(String[] args) {
-		String mazeName=args[0];
-		String fileName=args[1];
-		if(mazeName!=null && fileName!=null)
-		{
-			try {
-			OutputStream out = new MyCompressorOutputStream(new FileOutputStream(fileName+".maz"));
-			out.write(mazes.get(mazeName).toByteArray());			
-			out.flush();
-			out.close();
+		if (args.length==2){
+			String mazeName=args[0];
+			String fileName=args[1];
+			if(mazes.containsKey(mazeName))
+			{
+				try {
+				OutputStream out = new MyCompressorOutputStream(new FileOutputStream(fileName+".maz"));
+				out.write(mazes.get(mazeName).toByteArray());			
+				out.flush();
+				out.close();
+				controller.output("the Maze was saved");
+				}
+				catch (Exception e) {
+					controller.output("Error on saving the maze");
+				}
 			}
-			catch (Exception e) {
-				controller.output("Error on saving the maze");
-			}
+			else
+				controller.output("Error: maze doesn't exist");
 		}
 		else
-			controller.output("invalid data");
+			controller.output("Error: please enter 2 args");
 	}
 	
 	/**
@@ -127,47 +124,64 @@ public class MyModel implements Model {
 	 */
 	@Override
 	public void loadMaze(String[] args) {
-		String mazeName=args[0];
-		String fileName=args[1];
-		if(mazeName!=null && fileName!=null)
-		{
-			
-			try {
-				
-				InputStream in=new MyDecompressorInputStream(new FileInputStream(fileName+".maz"));
-				byte b[]=new byte[100];
-				try{
-					
-					in.read(b);
-					Maze3d loaded=new Maze3d(b);
-					mazes.put(mazeName, loaded);
-				}
-				catch (IOException e) {
-					e.printStackTrace();
-				}
-				finally {
-					try {
-						in.close();
-					} 
-					catch (IOException e) {
-						controller.output("Error to close file");
+	if (args.length==2){
+			String mazeName=args[0];
+			String fileName=args[1];
+			if(!mazes.containsKey(mazeName))
+			{
+				try {
+					InputStream in=new MyDecompressorInputStream(new FileInputStream(fileName+".maz"));
+					byte b[]=new byte[1000000000];
+					try{
+						in.read(b);
+						Maze3d loaded=new Maze3d(b);
+						mazes.put(mazeName, loaded);
 					}
+					catch (IOException e) {
+						e.printStackTrace();
+					}
+					finally {
+						try {
+							in.close();
+						} 
+						catch (IOException e) {
+							controller.output("Error to close file");
+						}
+					}
+					controller.output("Maze was loaded succesfully");
 				}
-				controller.output("Maze was loaded succesfully");
+				catch (Exception e) {
+					controller.output("Error in loading file");
+				}
 			}
-			catch (Exception e) {
-				controller.output("Error in loading file");
-			}
+			else 
+				controller.output("ERROR: maze name is incorrect ");
 		}
-		else 
-			controller.output("not enough data");
+		else {
+			controller.output("ERROR: please enter 2 args");
+		}
 	}
+	
 	
 	/**
 	 * return the list of the files
 	 */
-	public File[] listFiles(String args){
-		return (new File(args)).listFiles();
+	public File[] listFiles(String[] args){
+		if (args.length==1)
+		{
+			File f = new File(args[0]);
+			if (f.exists() && f.isDirectory()) {
+				return new File(args[0]).listFiles();
+			}
+			else{
+				System.out.println("ERROR: directory :" + args[0] +" dosent exist");
+				return null;
+			}
+		}
+		else {
+			System.out.println("ERROR: please enter 1 arg");
+			return null;
+		}
 	}
 	
 	/**
@@ -178,61 +192,97 @@ public class MyModel implements Model {
 		Thread thread = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				String nameMaze=args[0];
-				String alg=args[1];
-				Maze3d maze=getMaze(nameMaze);
-				if (maze!=null && alg!=null){
-					Solution<Position> solution = new Solution<>();
-					Maze3dSearchable mazeAdapter = new Maze3dSearchable(maze);
-				
-					if(alg.toUpperCase().equals("BFS")) {
-						BFS<Position> searcher = new BFS<>();
-						solution = searcher.search(mazeAdapter);
-						solutions.put(nameMaze, solution);
-						controller.output("the solution is ready");
-					}
-					else if (alg.toUpperCase().equals("DFS")) {
-						DFS<Position> searcher = new DFS<>();
-						solution = searcher.search(mazeAdapter);
-						solutions.put(nameMaze, solution);
-						controller.output("the solution is ready");
+				if(args.length==2){
+					String nameMaze=args[0];
+					String alg=args[1];
+					if (mazes.containsKey(nameMaze)){
+						Maze3d maze=getMaze(nameMaze);
+						Solution<Position> solution = new Solution<>();
+						Maze3dSearchable mazeAdapter = new Maze3dSearchable(maze);
+					
+						if(alg.toUpperCase().equals("BFS")) {
+							BFS<Position> searcher = new BFS<>();
+							solution = searcher.search(mazeAdapter);
+							solutions.put(nameMaze, solution);
+							controller.output("the solution is ready");
+						}
+						else if (alg.toUpperCase().equals("DFS")) {
+							DFS<Position> searcher = new DFS<>();
+							solution = searcher.search(mazeAdapter);
+							solutions.put(nameMaze, solution);
+							controller.output("the solution is ready");
+						}
+						else
+							controller.output("ERROR: you entered the wrong solution name");
 					}
 					else
-						controller.output("you entered the wrong solution name");
+						controller.output("ERROR: maze doesn't exist");
 				}
-				else
-					controller.output("invalid data");
+				else 
+					controller.output("ERROR: please enter 2 args");
 			}
 		});
-		exec.submit(thread);
+		thread.start();
+		threads.add(thread);
 	}
 	
 	/**
 	 * get the solution of the maze
 	 */
 	public Solution<Position> getSolution(String[] args){
-		Solution<Position> sol= solutions.get(args[0]);
-		if(sol!=null)
-			return sol;
+		if ( args.length==1 )
+		{
+			if (mazes.containsKey(args[0]))
+				{
+					Solution<Position> sol= solutions.get(args[0]);
+					if(sol!=null)
+						return sol;
+					else{
+						controller.output("ERROR: there is no solution yet");
+						return null;
+					}
+				}
+			else{
+				controller.output("ERROR: the maze doesn't exits");
+				return null;
+			}
+		}
 		else{
-			controller.output("there is no solution yet");
+			controller.output("ERROR: please enter 1 arg");
 			return null;
 		}
 	}
 	
 	/**
 	 * get Cross Section
+	 * axle index maze name
 	 */
 	public int[][] getCrossSection(String[] args){
-		int floors= Integer.parseInt(args[0]);
-		String name = args[3];
-		Maze3d maze=this.mazes.get(name);
-		if (maze!=null)
-			return maze.getCrossSectionByX(floors);
+		if (args.length==3){
+			int floors= Integer.parseInt(args[1]);
+			String name = args[2];
+			Maze3d maze=this.mazes.get(name);
+			if (maze!=null)
+				if(args[0].toUpperCase().equals("X"))
+					return maze.getCrossSectionByX(floors);
+				else if(args[0].toUpperCase().equals("Y"))
+					return maze.getCrossSectionByY(floors);
+				else if(args[0].toUpperCase().equals("Z"))
+					return maze.getCrossSectionByZ(floors);
+				else{
+					controller.output("ERROR: the axle dosen't exist");
+					return null;
+				}
+			else{
+				controller.output("ERROR: the maze is not exist");
+				return null;
+			}
+		}
 		else{
-			controller.output("the maze is not exist");
+			controller.output("ERROR: please enter 3 args");
 			return null;
 		}
+		
 	}
 
 	/**
@@ -240,7 +290,12 @@ public class MyModel implements Model {
 	 */
 	@Override
 	public void exit(String[] args) {
-		exec.shutdown();
-		controller.output("EXIT!");
+		for (Thread t: threads){
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
