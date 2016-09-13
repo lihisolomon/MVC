@@ -129,7 +129,6 @@ public class CommandsManager {
 	
 	/**
 	 * display the solution of the maze
-	 *
 	 */
 	public class displaySolutionCommand implements Command {
 
@@ -146,7 +145,6 @@ public class CommandsManager {
 		@Override
 		public void doCommand(String[] args) {
 			model.exit(args);
-			view.exit(args);
 		}
 	}
 }

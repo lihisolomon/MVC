@@ -291,11 +291,7 @@ public class MyModel implements Model {
 	@Override
 	public void exit(String[] args) {
 		for (Thread t: threads){
-			try {
-				t.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+			t.interrupt();
 		}
 	}
 }
