@@ -103,7 +103,15 @@ public class MyModel implements Model {
 			{
 				try {
 				OutputStream out = new MyCompressorOutputStream(new FileOutputStream(fileName+".maz"));
-				out.write(mazes.get(mazeName).toByteArray());			
+				byte[] arr=mazes.get(mazeName).toByteArray();
+				int counter=arr.length;
+				while(counter>=255)
+				{
+					out.write(255);
+					counter-=255;
+				}
+				out.write(counter);
+				out.write(arr);			
 				out.flush();
 				out.close();
 				controller.output("the Maze was saved");
@@ -131,7 +139,14 @@ public class MyModel implements Model {
 			{
 				try {
 					InputStream in=new MyDecompressorInputStream(new FileInputStream(fileName+".maz"));
-					byte b[]=new byte[1000000000];
+					int size=in.read();
+					int sum=0;
+					while(size==255)
+					{	sum+=size;
+						size=in.read();
+					}
+					sum+=size;
+					byte b[]=new byte[sum];
 					try{
 						in.read(b);
 						Maze3d loaded=new Maze3d(b);
