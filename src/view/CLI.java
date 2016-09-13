@@ -92,9 +92,9 @@ public class CLI {
               System.out.println("		generate_maze <mazeName> <x> <y> <z>");
               System.out.println("		display <name>");
               System.out.println("		display_cross_section <axle> <index> <mazeName>");
-              System.out.println("		save_maze mazeName <fileName>");
-              System.out.println("		load_maze mazeName <fileName>");
-              System.out.println("		solve mazeName <algorithm>");
+              System.out.println("		save_maze <mazeName> <fileName>");
+              System.out.println("		load_maze <mazeName> <fileName>");
+              System.out.println("		solve <mazeName> <algorithm>");
               System.out.println("		display_solution <mazeName>");
               System.out.println("		exit");
               System.out.println("********************************\n");
