@@ -48,10 +48,7 @@ public class MyModel implements Model {
 
 	/**
 	 * generate the maze
-	 * @param name
-	 * @param floors
-	 * @param rows
-	 * @param cols
+	 * @param args
 	 */
 	@Override
 	public void generateMaze(String[] args) {

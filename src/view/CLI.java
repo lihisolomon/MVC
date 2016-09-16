@@ -57,7 +57,7 @@ public class CLI {
                 		printOutput("please enter your choice: ");
                         userString=in.readLine();
                         String command=(userString.split(" "))[0];
-                        if ( commands.containsKey(command)) {
+                        if (commands.containsKey(command)) {
                             try {
                                    //convert the string to an array and removes the first characters until space
                                     commands.get(command).doCommand(userString.substring(userString.indexOf(" ")+1,userString.length()).split(" "));
@@ -92,18 +92,18 @@ public class CLI {
      * Print a menu to the viewer
      */
     public void printMenu(){
-    		  System.out.println("\n\n********************************");
-              System.out.println("what do want to do? ");
-              System.out.println("		dir <path>");
-              System.out.println("		generate_maze <mazeName> <x> <y> <z>");
-              System.out.println("		display <name>");
-              System.out.println("		display_cross_section <axle> <index> <mazeName>");
-              System.out.println("		save_maze <mazeName> <fileName>");
-              System.out.println("		load_maze <mazeName> <fileName>");
-              System.out.println("		solve <mazeName> <algorithm>");
-              System.out.println("		display_solution <mazeName>");
-              System.out.println("		exit");
-              System.out.println("********************************\n");
-       }
+    	printOutput("\n\n********************************");
+    	printOutput("what do want to do? ");
+    	printOutput("		dir <path>");
+    	printOutput("		generate_maze <mazeName> <x> <y> <z>");
+    	printOutput("		display <name>");
+    	printOutput("		display_cross_section <axle> <index> <mazeName>");
+    	printOutput("		save_maze <mazeName> <fileName>");
+    	printOutput("		load_maze <mazeName> <fileName>");
+    	printOutput("		solve <mazeName> <algorithm>");
+    	printOutput("		display_solution <mazeName>");
+    	printOutput("		exit");
+    	printOutput("********************************\n");
+    }
 }
  

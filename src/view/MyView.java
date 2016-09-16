@@ -63,7 +63,6 @@ public class MyView implements View{
 		cli.printOutput(str);
 	}
 	
-	
 	/**
 	 * Start the program 
 	 * @param1 in 		- input stream
@@ -81,7 +80,7 @@ public class MyView implements View{
 	 */
 	@Override
 	public void notifyMazeIsReady(String name) {
-		System.out.println("maze " + name+ " is ready");
+		printOutput("maze " + name+ " is ready");
 	}
 	
 	/**
@@ -96,9 +95,9 @@ public class MyView implements View{
 		} 
 		else
 		{
-			System.out.println("Start: ");
+			printOutput("Start: ");
 			maze.getStartPosition().printPosition();
-			System.out.println("End: ");
+			printOutput("End: ");
 			maze.getGoalPosition().printPosition();
 			System.out.println(maze);
 		}
