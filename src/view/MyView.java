@@ -65,9 +65,6 @@ public class MyView implements View{
 	
 	/**
 	 * Start the program 
-	 * @param1 in 		- input stream
-	 * @param2 out 		- output stream
-	 * @param3 command 	- command to run in cli class
 	 */
 	@Override
 	public void start()
@@ -106,6 +103,7 @@ public class MyView implements View{
 	/**
 	 * Prints all the files in specific folder
 	 */
+	@Override
 	public void displayFiles(File[] listOfFiles)
 	{			
 		if (listOfFiles!=null)
@@ -130,6 +128,7 @@ public class MyView implements View{
 	/**
 	 * display Cross Section
 	 */
+	@Override
 	public void displayCrossSection(int[][] maze2d){
 		System.out.println("{");
 		for (int i=0;i<maze2d.length;i++)

@@ -305,5 +305,6 @@ public class MyModel implements Model {
 		for (Thread t: threads){
 			t.interrupt();
 		}
+		controller.output("BYE BYE");
 	}
 }
