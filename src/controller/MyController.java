@@ -6,24 +6,12 @@ import view.View;
 /**
  * MyController class implements Controller
  */
-public class MyController implements Controller{
-	private View view;
-	private Model model;
-	private CommandsManager commandsManager;
+public class MyController extends CommonController{
 	
-	/**
-	 * Controller CTOR
-	 * @param view
-	 * @param model
-	 */
 	public MyController(View view, Model model) {
-		this.view = view;
-		this.model = model;
-		
-		commandsManager = new CommandsManager(model, view);
-		view.setCommands(commandsManager.getCommandsMap());
+		super(view,model);
 	}
-	
+
 	/**
 	 * sending a message to the view
 	 * @param string the message we want

@@ -14,11 +14,9 @@ import controller.Controller;
 /**
  * MyView Class implements View
  */
-public class MyView implements View{
+public class MyView extends CommonView{
 
 	private CLI cli;
-	private HashMap<String, Command> commands;
-	private Controller controller;
 	
 	/**
 	 * CTOR
@@ -26,7 +24,7 @@ public class MyView implements View{
 	 * @param out the output stream object
 	 */
 	public MyView(BufferedReader in,PrintWriter out) {
-		 this.cli = new CLI(in,out,this.commands);
+		 this.cli = new CLI(in,out,commands);
 	}
 
 	/**
@@ -35,7 +33,7 @@ public class MyView implements View{
 	 */
 	@Override
 	public void setController(Controller controller) {
-		this.controller = controller;
+		super.controller = controller;
 		cli.setCommands(this.commands);
 	}
 	
@@ -52,7 +50,7 @@ public class MyView implements View{
 	 */
 	@Override
 	public void setCommands(HashMap<String, Command> commands) {
-			this.commands=commands;
+			super.commands=commands;
 	}
 	
 	/**

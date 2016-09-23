@@ -13,20 +13,19 @@ import io.*;
  * MyModel class implements Model
  *
  */
-public class MyModel implements Model {
+public class MyModel extends CommonModel {
 	
-	private Controller controller;	
-	private Map<String, Maze3d> mazes;
-	private HashMap<String, Solution<Position>> solutions;
-	private List<Thread> threads;
+	protected Map<String, Maze3d> mazes;
+	protected HashMap<String, Solution<Position>> solutions;
+	
 
 	/**
 	 * CTOR
 	 */
 	public MyModel() {
+		super();
 		this.mazes = new ConcurrentHashMap<String, Maze3d>();
 		this.solutions = new HashMap<>();
-		this.threads=new ArrayList<Thread>();
 	}
 	
 	/**
