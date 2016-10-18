@@ -38,7 +38,7 @@ public class MyModel extends CommonModel {
 
 	/**
 	 * setter of controller
-	 * @param controller 
+	 * @param controller - the controller
 	 */
 	@Override
 	public void setController(Controller controller) {
@@ -47,7 +47,7 @@ public class MyModel extends CommonModel {
 
 	/**
 	 * generate the maze
-	 * @param args
+	 * @param args- the args: maze name, floors,rows,columns
 	 */
 	@Override
 	public void generateMaze(String[] args) {

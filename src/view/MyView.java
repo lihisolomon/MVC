@@ -29,7 +29,7 @@ public class MyView extends CommonView{
 
 	/**
 	 * setter of controller
-	 * @param controller 
+	 * @param controller -the controller
 	 */
 	@Override
 	public void setController(Controller controller) {

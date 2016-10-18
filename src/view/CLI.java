@@ -17,9 +17,9 @@ public class CLI {
 
     /**
      * CTOR
-     * @param in
-     * @param out
-     * @param commands
+     * @param in -BufferedReader
+     * @param out -PrintWriter
+     * @param commands -the commands
      */
     public CLI(BufferedReader in, PrintWriter out,HashMap<String, Command> commands){
        this.in = in;
@@ -29,7 +29,7 @@ public class CLI {
  
     /**
      * getters the commands
-     * @return
+     * @return the commands
      */
     public HashMap<String, Command> getCommands() {
 		return commands;
@@ -37,7 +37,7 @@ public class CLI {
 
     /**
      * setter of the commands
-     * @param commands
+     * @param commands- the commands
      */
 	public void setCommands(HashMap<String, Command> commands) {
 		this.commands = commands;

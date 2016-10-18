@@ -10,8 +10,8 @@ public abstract class CommonController implements Controller {
 	
 	/**
 	 * Controller CTOR
-	 * @param view
-	 * @param model
+	 * @param view -the view
+	 * @param model -the model
 	 */
 	public CommonController(View view, Model model) {
 		this.view = view;

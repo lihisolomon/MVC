@@ -16,8 +16,8 @@ public class CommandsManager {
 		
 	/**
 	 * C'tor
-	 * @param model
-	 * @param view
+	 * @param model-the model 
+	 * @param view-the view
 	 */
 	public CommandsManager(Model model, View view) {
 		this.model = model;
@@ -26,7 +26,7 @@ public class CommandsManager {
 	
 	/**
 	 * Creates a hash map of all the commands
-	 * @return commands
+	 * @return commands - the commands
 	 */
 		public HashMap<String, Command> getCommandsMap() {
 			HashMap<String, Command> commands = new HashMap<String, Command>();
